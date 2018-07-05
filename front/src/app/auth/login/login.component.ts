@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
 
-
   constructor(
     private authService: AuthService,
     // private router: Router
@@ -22,11 +21,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       // for dev
-      email: new FormControl('alexplusm@ya.ru',
-        // email: new FormControl(null,
+      username: new FormControl('serega',
         [Validators.required,
-          Validators.maxLength(100),
-          Validators.email]),
+        Validators.maxLength(100)]),
       password: new FormControl(null, [
         Validators.required
       ]),
@@ -39,8 +36,8 @@ export class LoginComponent implements OnInit {
   }
 
 
-  emailValidation() {
-    return this.form.get('email').invalid && this.form.get('email').touched;
+  usernameValidation() {
+    return this.form.get('username').invalid && this.form.get('username').touched;
   }
 
   passValidation() {
@@ -57,7 +54,7 @@ export class LoginComponent implements OnInit {
 
     if (this.form.valid) {
 
-      const email = this.form.controls.email.value;
+      const username = this.form.controls.username.value;
       const password = this.form.controls.password.value;
 
       // // см регистрационный компонентн
@@ -82,7 +79,11 @@ export class LoginComponent implements OnInit {
       //
       //   });
 
-      alert(`pass ${password}, email ${email}`);
+      // alert(`pass ${password}, email ${email}`);
+
+      this.authService.login(username, password).subscribe(value => {
+        console.log('value', value);
+      });
 
       this.form.reset();
     }

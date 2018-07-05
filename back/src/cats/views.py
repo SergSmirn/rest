@@ -1,6 +1,5 @@
 from cats.models import Cat
 from cats.serializer import CatsSerializer
-from cats.permission import IsOwner
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes

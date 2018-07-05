@@ -12,16 +12,6 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('on init');
-    this.authService.getReq()
-      .subscribe(value => {
-        console.log('ghbdtn', value);
-    });
-
-    this.authService.postReq('alex', 'qwe123')
-      .subscribe(value => {
-        console.log('valueeeeee', value);
-    });
   }
 
 }

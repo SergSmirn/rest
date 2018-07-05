@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // import {Router} from '@angular/router';
 
 
@@ -8,6 +8,12 @@ export class AuthService {
 
   // private user$ = new BehaviorSubject<IUser>(null);
   // private loggedInSubject = new BehaviorSubject<boolean>(false);
+
+  private clientID = 'Pb1yHpASt4Ufd1yPCnq3SEriKJfA0joX2X0ywTri';
+  private clientSecret = 's8zwYfEv7RATfXl3MCApw0e4aofIlioPtGizVpT6PZ1mVmPmsIp5GaE9ngYRrGkhRaCXXHyNlptVXYBcGeWHhccp7'
+    + 'I8HDvTi9j66Qy09tW6iqRbncwAhfsBc86vfNchg';
+
+  private loginUrl = 'http://localhost:8002/o/token/';
 
 
   private grantType = 'password&username';
@@ -25,36 +31,28 @@ export class AuthService {
     //   .subscribe(value => {
     //     console.log('--- value', value);
     //   });
-    }
-
-
-
-  getReq() {
-    const options = {params: new HttpParams().set('name', 'alex')};
-
-    return this.http.get(this.localhostUrl, options);
   }
 
-  postReq(username: string, password: string) {
 
+
+
+  login(username: string, password: string) {
     const headers = new HttpHeaders(
       {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type' : 'application/json; charset=utf-8',
-        'Authorization' : 'Basic ' + btoa(`${username}:${password}`)
-      });
+        'Authorization': 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`)
+      }
+    );
 
-    console.log('------- headers', headers);
     const options = { headers: headers };
 
-    // const data = {
-    //   id: '1'
-    // };
+    const data = {
+      'grant_type': this.grantType,
+      username,
+      password
+    };
 
-    const data = 'asdsad';
+    return this.http.post(this.loginUrl, data, options);
 
-
-    return this.http.post(this.localhostUrl, data);
   }
 
 
@@ -88,9 +86,7 @@ export class AuthService {
   //   // });
   // }
 
-  login() {
 
-  }
 
   // signUp({email, password}: ILogin): Observable<any> {
   //   return Observable.fromPromise(
