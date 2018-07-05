@@ -9,4 +9,5 @@ urlpatterns = [
     path('cats/<int:pk>/', cats_views.cats_detail),
     path('signup/', accounts_views.create_user),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('test/', accounts_views.test),
 ]

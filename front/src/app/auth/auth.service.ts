@@ -14,11 +14,8 @@ export class AuthService {
     + 'I8HDvTi9j66Qy09tW6iqRbncwAhfsBc86vfNchg';
 
   private loginUrl = 'http://localhost:8002/o/token/';
-
-
-  private grantType = 'password&username';
-  private localhostUrl = 'http://localhost:8000/';
-  private httpOtions = '';
+  private grantType = 'password';
+  private token = '';
 
   constructor(private http: HttpClient) {
 
@@ -39,22 +36,26 @@ export class AuthService {
   login(username: string, password: string) {
     const headers = new HttpHeaders(
       {
-        'Authorization': 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`)
+        'Authorization': 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     );
 
     const options = { headers: headers };
 
-    const data = {
-      'grant_type': this.grantType,
-      username,
-      password
-    };
+    const data = `grant_type=${this.grantType}&username=${username}&password=${password}`;
 
     return this.http.post(this.loginUrl, data, options);
 
   }
 
+  setToken(token) {
+    this.token = token;
+  }
+
+  getToken() {
+    return this.token;
+  }
 
   // getUser$(): Observable<IUser> {
   //   return this.user$.asObservable();
@@ -110,9 +111,6 @@ export class AuthService {
   //     .signOut()
   //     .then(() => this.router.navigate(['/']));
   // }
-
-
-
 
 
   getErrors(errors: any): string {

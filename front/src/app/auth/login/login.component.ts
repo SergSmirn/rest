@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-    this.form.controls.email.markAsTouched();
+    this.form.controls.username.markAsTouched();
     this.form.controls.password.markAsTouched();
 
     if (this.form.valid) {
