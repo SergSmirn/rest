@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {AuthModule} from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -13,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AuthModule,
+    CoreModule,
     FormsModule,
     HttpClientModule,
 
