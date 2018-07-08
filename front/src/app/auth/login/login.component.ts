@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       // for dev
-      username: new FormControl('serega',
+      username: new FormControl('ser',
         [Validators.required,
         Validators.maxLength(100)]),
-      password: new FormControl(null, [
+      password: new FormControl('1kristina1', [
         Validators.required
       ]),
     });
@@ -81,8 +81,10 @@ export class LoginComponent implements OnInit {
 
       // alert(`pass ${password}, email ${email}`);
 
+
       this.authService.login(username, password).subscribe(value => {
         console.log('value', value);
+        this.authService.setToken(value['access_token']);
       });
 
       this.form.reset();

@@ -14,20 +14,11 @@ export class AuthService {
     + 'I8HDvTi9j66Qy09tW6iqRbncwAhfsBc86vfNchg';
 
   private loginUrl = 'http://localhost:8002/o/token/';
+  private registerUrl = 'http://localhost:8002/signup/';
   private grantType = 'password';
   private token = '';
 
   constructor(private http: HttpClient) {
-
-    // this.postReq(this.lochalUrl, 'alex', 'qwe123')
-    //   .subscribe(value => {
-    //     console.log('valueeeeee', value);
-    // });
-
-    // this.getReq()
-    //   .subscribe(value => {
-    //     console.log('--- value', value);
-    //   });
   }
 
 
@@ -47,6 +38,11 @@ export class AuthService {
 
     return this.http.post(this.loginUrl, data, options);
 
+  }
+
+  register(username: string, email: string, password: string) {
+    const data = {username, email, password};
+    return this.http.post(this.registerUrl, data);
   }
 
   setToken(token) {

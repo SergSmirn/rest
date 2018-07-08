@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -7,9 +10,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+
+      username: new FormControl('ser',
+        [Validators.required,
+        Validators.maxLength(100)]),
+      email: new FormControl('q@ya.ru', [Validators.required,
+      Validators.email, Validators.maxLength(100)]),
+      password: new FormControl(null, [
+        Validators.required
+      ]),
+    });
   }
 
+  onSubmit() {
+
+    this.form.controls.username.markAsTouched();
+    this.form.controls.email.markAsTouched();
+    this.form.controls.password.markAsTouched();
+
+    if (this.form.valid) {
+
+      const username = this.form.controls.username.value;
+      const email = this.form.controls.email.value;
+      const password = this.form.controls.password.value;
+
+      this.authService.register(username, email, password).subscribe(value => {
+        console.log('value', value);
+      });
+      this.form.reset();
+    }
+  }
+
+  getErrors(errors: any) {
+    return this.authService.getErrors(errors);
+  }
+
+  usernameValidation() {
+    return this.form.get('username').invalid && this.form.get('username').touched;
+  }
+
+  emailValidation() {
+    return this.form.get('email').invalid && this.form.get('email').touched;
+  }
+  
+  passValidation() {
+    const b = this.form.get('password').invalid
+      && this.form.get('password').touched;
+
+    return b;
+  }
 }
