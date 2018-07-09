@@ -1,0 +1,23 @@
+.card:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+}
+
+.card-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 24px;
+  padding: 0 5px 0 5px;
+  color: red;
+}
+.card-delete:hover {
+  transform: scale(1.2);
+}
+.card-delete:active {
+  transform: scale(1.3);
+}

@@ -15,9 +15,9 @@ def cats_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = CatsSerializer(data=request.data, owner=request.user)
+        serializer = CatsSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

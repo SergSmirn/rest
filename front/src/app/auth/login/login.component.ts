@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -15,13 +17,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    // private router: Router
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      // for dev
-      username: new FormControl('ser',
+      username: new FormControl('serega',
         [Validators.required,
         Validators.maxLength(100)]),
       password: new FormControl('1kristina1', [
@@ -57,37 +58,12 @@ export class LoginComponent implements OnInit {
       const username = this.form.controls.username.value;
       const password = this.form.controls.password.value;
 
-      // // см регистрационный компонентн
-      // this.authService.login({email, password})
-      //   .subscribe(value => {
-      //
-      //     this.notifyService.generateNotification(
-      //       `Успешный вход`,
-      //       'success'
-      //     );
-      //     // alert(`Login.component Успешный вход - ${value}`);
-      //
-      //     // странный core  -  тут наследуются стили от auth.component.css !!!
-      //     this.router.navigate(['core']);
-      //
-      //   }, error => {
-      //
-      //     this.notifyService.generateNotification(
-      //       `Неверный email или пароль : ${error}`,
-      //       'warning');
-      //     // alert(`Login.component ошибочный вход - ${error}`);
-      //
-      //   });
-
-      // alert(`pass ${password}, email ${email}`);
-
-
       this.authService.login(username, password).subscribe(value => {
-        console.log('value', value);
         this.authService.setToken(value['access_token']);
+        this.router.navigate(['']);
       });
 
-      this.form.reset();
+      this.form.reset();      
     }
   }
 }

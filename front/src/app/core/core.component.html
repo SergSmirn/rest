@@ -1,39 +1,19 @@
-<p>
-  core works!
-</p>
-
-
-<button (click)="renderItems()">
-  Click ME!
-</button>
-
-<div *ngFor="let item of (items$ | async)">
-  <div class="card">
-    <div class="card-body">
-      <div class="close" 
-           (click)="deleteItem(item?.id)">
-        &times;
-      </div>
-      <div class="btn btn-default" (click)="onInfoOpen()">infoOpen</div>
-      <table class="table" *ngIf="infoOpen">
-        <tbody>
-          <tr>
-            <th>id</th>
-            <th>owner</th>
-            <th>name</th>
-            <th>color</th>
-          </tr>
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.owner}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.color}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="row">
+  <div class="col-md-4 mt-4"
+       *ngFor="let item of (items$ | async)">
+    <app-core-preview
+      [item]="item"
+      [previewOpen]="previewOpen"
+      [editOpen]="editOpen"
+      (clickPreview)="clickPreview($event)"
+      (cardDelete)="deleteItem($event)"
+      (cardEdit)="cardEdit($event)"
+      (itemUpdate)="updateCard($event)">
+    </app-core-preview>
   </div>
-  <button (click)="detailItem(item?.id)">
-    в соло
-  </button>  
+  <div class="col-md-12">
+    <app-core-add-form
+      (newItem)="newItem($event)">
+    </app-core-add-form>
+  </div>
 </div>

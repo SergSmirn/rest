@@ -1,0 +1,30 @@
+<div class="card"
+     (click)="onClickPreview(item.id)">
+  <div class="card-body">
+    <div class="card-delete"
+         (click)="onItemDelete(item.id)"
+         *ngIf="!formEditOpen(item.id)">
+      &times;
+    </div>
+    <div class="card-edit"
+         (click)="onCoreEdit(item.id)">
+      <i class="material-icons">
+        edit
+      </i>
+    </div>
+    <div *ngIf="formEditOpen(item.id)">
+      <app-core-edit-form [item]="item"
+                          (editCard)="editCore($event)">
+      </app-core-edit-form>
+    </div>
+    <div *ngIf="!formEditOpen(item.id)">
+      <h5 class="card-title">
+        {{item.name}}
+      </h5>
+      <p class="card-text"
+         *ngIf="openPreview(item.id)">
+        {{item.color}}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// import {Router} from '@angular/router';
-
 
 @Injectable()
 export class AuthService {
-
-  // private user$ = new BehaviorSubject<IUser>(null);
-  // private loggedInSubject = new BehaviorSubject<boolean>(false);
 
   private clientID = 'Pb1yHpASt4Ufd1yPCnq3SEriKJfA0joX2X0ywTri';
   private clientSecret = 's8zwYfEv7RATfXl3MCApw0e4aofIlioPtGizVpT6PZ1mVmPmsIp5GaE9ngYRrGkhRaCXXHyNlptVXYBcGeWHhccp7'
@@ -20,9 +15,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
   }
-
-
-
 
   login(username: string, password: string) {
     const headers = new HttpHeaders(
@@ -52,62 +44,6 @@ export class AuthService {
   getToken() {
     return this.token;
   }
-
-  // getUser$(): Observable<IUser> {
-  //   return this.user$.asObservable();
-  // }
-
-  // getUserId$(): Observable<string> {
-  //   return this.getUser$()
-  //     .map((user) => user ? user.uid : null);
-  // }
-
-  // getUserEmail$(): Observable<string> {
-  //   return this.getUser$()
-  //     .map((user) => user ? user.email : null);
-  // }
-
-  // getUserEmail(): string {
-  //   return this.user$.getValue().email;
-  // }
-
-
-  // login({email, password}: ILogin): Observable<any> {
-  //   return Observable.fromPromise(
-  //     this.fireAuth
-  //       .auth
-  //       .signInWithEmailAndPassword(email, password)
-  //   );
-  //   // .do(() => {
-  //   //  редирект в login.component
-  //   // });
-  // }
-
-
-
-  // signUp({email, password}: ILogin): Observable<any> {
-  //   return Observable.fromPromise(
-  //     this.fireAuth
-  //       .auth
-  //       .createUserWithEmailAndPassword(email, password)
-  //   )
-  //   // борьба с авторизацией сразу после создания аккаунта
-  //     .do(() => this.logout());
-  //
-  //   //   .do(() => {
-  //   //      редирект в regist.component
-  //   //   // в случае успеха - редирект на логин
-  //   //   this.router.navigate(['login']);
-  //   // });
-  // }
-
-  // logout() {
-  //   this.fireAuth
-  //     .auth
-  //     .signOut()
-  //     .then(() => this.router.navigate(['/']));
-  // }
-
 
   getErrors(errors: any): string {
 
